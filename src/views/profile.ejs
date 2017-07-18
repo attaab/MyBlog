@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+    <meta charset="utf-8">
+    <title><%=user.username%> || Profile</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../../assets/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+    <!-- endbower -->
+    <!-- bower:js -->
+    <script src="../../assets/lib/jquery/dist/jquery.js"></script>
+    <script src="../../assets/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/singleView.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="/assets/js/deleteRequest.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <!-- endinject -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	  <aside>
+	  </aside>
+ <!--==================== Modal for invite friends =================== -->
+   <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!--================= Modal content========================-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="text-center">
+                    Sign In / Sign Up
+                    </h3>
+              </div>
+              <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkout_count" style="background-color:lightblue;">
+                               <h3 class="text-center">Sign In
+                                </h3>
+                                 <form id="contact_form" method="POST" action="/auth/signIn" class="text-center">
+
+
+                                    <label for="email">Your Username</label><br/>
+
+                                    <input id="user_email" type="Username" placeholder="Your Username*" name="usernameField" required><br/>
+
+                                     <label for="password">Your Password</label><br/>
+                                    <input id="user_address" type="password" placeholder="Enter password*" name="passwordField" required><br/>
+
+                                    <input type="submit" value="Sign In" class="btn btn-warning"  style="
+                                        margin-top: 20px !important;
+                                    "><br/>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="checkout_count">
+                                 <h3 class="text-center">
+                                     Sign up
+                                </h3>
+                                <form class="text-center" name="SignUpForm" action="/auth/signUp" method="POST">
+                                <label for="Username">Your UserName</label><br/>
+                                  <input type="text" placeholder="Username" name="userName" id="userName" required="required"><br/>
+                                  <label for="Email">Your Email</label><br/>
+                                   <input type="email" placeholder="Email" name="Email" id="Email" required><br/>
+                                   <label for="Password">Your Password</label><br/>
+                                  <input type="password" placeholder="Password" name="password" id="password" required="required"><br/>
+                                  <input type="submit" value="Sign Up" class="text-center btn btn-warning"  style="
+                                        margin-top: 20px !important;
+                                    "><br/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+             <div class="modal-footer" style="
+                    padding-top: 8px;
+                ">
+                
+              </div>
+            </div>
+
+          </div>
+        </div>
+    <!--===============END of Modal for invite friends ===============-->
+<!--	  ================Modal for Create post=====================-->
+<div id="createPost" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!--================= Modal content========================-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="text-center">
+                    Create New Post
+                    </h3>
+              </div>
+              <div class="modal-body">
+                    <form method="post" action="/users/addArticle">
+						<div id="form-group">
+							<label>Author</label>
+							<input class="form-control" type="text" name="author" value="<%=user.username%>"  required="required">
+						</div>
+						<div id="form-group">
+							<label>Title</label>
+							<input class="form-control" type="text" name="title" required="required">
+						</div>
+						<div id="form-group">
+							<label>Post</label>
+							<textArea class="form-control" name="body" required="required"></textArea>
+						</div>
+						<br/>
+						<input id="button_action" class="btn" value="Post" type="submit" style="width: 100%; margin-top: 10px;">
+				  </form>
+              </div>
+             <div class="modal-footer">
+                
+              </div>
+            </div>
+
+          </div>
+        </div>
+<!--	  ================End of Modal for Create post=====================-->
+<!--	  ==========Modal for Edit Post=============-->
+<%for (var i = 0; i < articles.length; i++){%>
+<div id="editPost<%=articles[i]._id%>" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!--================= Modal content========================-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="text-center">
+                    Edit Post
+                    </h3>
+              </div>
+              <div class="modal-body">
+                    <form method="post" action="/users/editArticle/<%=articles[i]._id%>">
+						<div id="form-group">
+							<label>Title</label>
+							<input class="form-control" type="text" name="title"  value="<%=articles[i].title%>" required="required">
+						</div>
+						<div id="form-group">
+							<label>Post</label>
+							<textArea class="form-control" name="body"  required="required"><%=articles[i].body%></textArea>
+						</div>
+						<br/>
+						<input id="button_action" class="btn" value="Post" type="submit" style="width: 100%; margin-top: 10px;">
+				  </form>
+              </div>
+             <div class="modal-footer">
+                
+              </div>
+            </div>
+
+          </div>
+        </div>
+<%}%>
+<!--	  ==========End of Modal for Edit Post=============-->
+<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Home</a>
+    </div>
+	  <% include userNav.ejs%>
+  </div>
+</header>
+
+<div id="masthead">  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>
+          <p class="lead"></p>
+        </h1>
+      </div>
+      <div class="col-md-5">
+        <div class="well well-lg"> 
+          <div class="row">
+            <div class="col-sm-12">
+              
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-spacer"> </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+</div>
+
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">
+          
+          
+          
+          <!--/stories-->
+          <div class="row">    
+            <br>
+            <div class="col-md-4 col-sm-5 text-center">
+              <a class="story-title" href="#"><img alt="profile picture" src="http://api.randomuser.me/portraits/thumb/men/58.jpg" style="width:100px;height:100px"></a>
+				<h3><%=user.username%></h3>
+				<button id="button_action" type="button" class="btn" data-toggle="modal" data-target="#createPost">Create New Post</button>
+				<div class="text-center">
+					About User would go here
+				</div>
+            </div>
+			<div class="col-md-8 col-sm-7">
+				<h3 id="new_post" class="text-center">ARTICLES</h3>
+				<ul>
+					<%if (articles.length === 0){%>
+						<h2 class="text-center">There are no articles to show</h2>
+						<h5 class="text-center">Please click Create New Post to begin</h5>
+					<%}%>
+				  <%for (var i = 0; i < articles.length; i++){%>
+					<li class="list-group-item"><%=articles[i].title%>
+						<span class="delete_article" href="#" data-id="<%=articles[i]._id%>">delete</span>
+						<span class="edit_article_link" data-toggle="modal" data-target="#editPost<%=articles[i]._id%>">Edit</span>
+						<a class="article_link" href="/users/<%=articles[i]._id%>">View</a>
+					</li>
+					<%}%>
+				</ul>
+			</div>
+          </div>
+          <hr>
+          <!--/stories-->
+          
+          
+          
+        
+          
+        </div>
+      </div>
+                                                                                       
+                                                  
+                                                      
+    </div><!--/col-12-->
+  </div>
+</div>
+                                                
+                                                                                
+<hr>
+
+<div class="container" id="footer">
+  <div class="row">
+    <div class="col col-sm-12">
+      
+      <h1>Follow Me</h1>
+      <div class="btn-group">
+       <a class="btn btn-twitter btn-lg" href="#"><i class="icon-twitter icon-large"></i> Twitter</a>
+     <a class="btn btn-facebook btn-lg" href="#"><i class="icon-facebook icon-large"></i> Facebook</a>
+     <a class="btn btn-google-plus btn-lg" href="#"><i class="icon-google-plus icon-large"></i> Google+</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-inline">
+          <li><i class="icon-facebook icon-2x"></i></li>
+          <li><i class="icon-twitter icon-2x"></i></li>
+          <li><i class="icon-google-plus icon-2x"></i></li>
+          <li><i class="icon-pinterest icon-2x"></i></li>
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</footer>
+  <!-- script references -->
+	  
+  </body>
+</html>
