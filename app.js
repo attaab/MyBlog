@@ -32,12 +32,12 @@ var nav = [{
 		},{
 			Link: "/Authors",
 			Text: 'Author'
-		}]
+		}],
 
-var bookRouter = require("./src/routes/bookRoutes")(nav);
-var adminRouter = require("./src/routes/adminRoutes")(nav);
-var authRouter = require("./src/routes/authRoutes")(nav);
-var userRouter = require("./src/routes/users");
+		bookRouter = require("./src/routes/bookRoutes")(nav),
+		adminRouter = require("./src/routes/adminRoutes")(nav),
+		authRouter = require("./src/routes/authRoutes")(nav),
+		userRouter = require("./src/routes/users");
 
 //====Middleware======
 app.use("/assets", express.static('assets'));
