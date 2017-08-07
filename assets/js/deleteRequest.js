@@ -6,7 +6,6 @@ $(document).ready(function () {
 			type: 'DELETE',
 			url: `/users/deleteArticle/${id}`,
 			success: function (response) {
-				alert('Deleting...');
 				window.location.href='/users/profile';
 			},
 			error: function (err) {

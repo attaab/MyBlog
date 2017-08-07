@@ -79,8 +79,10 @@
            <% for (var i=0; i<nav.length; i++){%>
             <li><a href="<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
           <%}%>
-		  <li type="button" class="btn" data-toggle="modal" data-target="#myModal" style="margin-top: -7px"><a>Invite a friend</a></li>
-
+		  <li type="button" class="navbar-nav" data-toggle="modal" data-target="#myModal"><a>Invite a friend</a></li>
+			<%if (user) {%>
+			  <li class="navbar-nav"><a href="/users/logout">Logout</a></li>
+			  <%}%>
           </ul>
         </div>
       </div>

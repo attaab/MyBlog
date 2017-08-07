@@ -1,6 +1,8 @@
+/*jslint node:true*/
 var passport = require('passport');
 
 module.exports = function (app) {
+	'use strict';
 	app.use(passport.initialize());
 	app.use(passport.session());
  
@@ -12,4 +14,4 @@ module.exports = function (app) {
 	});
 
 	require('./strategies/local.strategy.js')();
-}
+};

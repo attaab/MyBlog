@@ -109,10 +109,6 @@
               <div class="modal-body">
                     <form method="post" action="/users/addArticle">
 						<div id="form-group">
-							<label>Author</label>
-							<input class="form-control" type="text" name="author" value="<%=user.username%>"  required="required">
-						</div>
-						<div id="form-group">
 							<label>Title</label>
 							<input class="form-control" type="text" name="title" required="required">
 						</div>
@@ -237,7 +233,7 @@
 				</div>
             </div>
 			<div class="col-md-8 col-sm-7">
-				<%-messages('message', locals) %>
+				<span id="flash_message"><%-messages('message', locals) %></span>
 				<h3 id="new_post" class="text-center">ARTICLES</h3>
 				<ul>
 					<%if (articles.length === 0){%>

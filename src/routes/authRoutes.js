@@ -1,14 +1,17 @@
-/*== jslint node: true ===*/
+/*jslint node:true*/
 var express = require('express');
 var authRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
 var passport = require('passport');
+var bcrypt = require('bcryptjs');
 
-var nav = [{
+var nav = [
+		{
 			Link: "/",
-		   Text: "MyBlog"},
-		   {
-            Link:"/books",
+		    Text: "MyBlog"
+		},
+		{
+            Link: "/books",
 		    Text: "Book"
 		}, {
 			Link: "/Authors",
@@ -16,6 +19,7 @@ var nav = [{
 		}];
 
 var router = function () {
+	'use strict';
 	//=====Routing the sign up====
 	authRouter.route('/signUp')
 		.post(function (req, res) {
@@ -33,7 +37,7 @@ var router = function () {
 				req.login(results.ops[0], function(){
 					res.redirect('/auth/profile');
 				});
- 			 })
+ 			 });
  		});
 	});
 
@@ -42,11 +46,12 @@ var router = function () {
 		//====securing the routes===
 		.all( function(req, res, next) {
 			if(!req.user) {
-				res.redirect("/auth/register")
+				res.redirect("/auth/register");
 			}
 			next();
 		})
 		//====End of securing the routes===
+	
 		.post(passport.authenticate('local', {
 			failureRedirect: "/auth/registerFail"
 		}), function(req, res){

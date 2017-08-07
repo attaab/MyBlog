@@ -53,7 +53,7 @@ var controller = function () {
 	addItem = function (req, res) {
 		var article = new Article();
 		article.title = req.body.title;
-		article.author = req.body.author;
+		article.author = req.user._id;
 		article.body = req.body.body;
 		
 		article.save(function (err) {
@@ -86,6 +86,13 @@ var controller = function () {
 			})
 		};
 	/*==End of creating route to profile==*/
+	
+	/*==Function for logging out==*/
+	logout = function (req, res) {
+		req.logout();
+		res.redirect('/');
+	};
+	/*==End of Function for logging out==*/
 	
 	/*==Creating route for a single item==*/
 	getIndex = function (req, res) {
@@ -138,7 +145,8 @@ var controller = function () {
 		getIndex: getIndex,
 		editItem: editItem,
 		deleteItem: deleteItem,
-		addItem: addItem
+		addItem: addItem,
+		logout: logout
 	};
 };
 

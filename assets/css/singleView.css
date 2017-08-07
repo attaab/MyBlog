@@ -264,6 +264,10 @@ a:hover{
 .alert_delete_spinner{
 	float: right !important;
 }
+#flash_message{
+	width: 100%;
+	position: absolute;
+}
 
 
 

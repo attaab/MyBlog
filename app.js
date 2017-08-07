@@ -65,12 +65,12 @@ app.use('/users', userRouter);
 
 /*==end of routing the users==*/
 
-
-
-
-
-
-
+/*==putting the logout option as global==*/
+app.get('*', function (req, res, next) {
+	res.locals.user = req.user || null;
+	next();
+});
+/*==End of putting the logout option as global==*/
 
 //=====Routing the app====
 app.get("/", function(req, res){

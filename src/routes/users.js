@@ -8,7 +8,7 @@ var express = require('express'),
 	expressValidator  = require('express-validator'),
 	flash = require('connect-flash'),
 	session = require('express-session'),
-	
+ 	
 	nav = [
 		{
 			Text: 'Books',
@@ -72,9 +72,13 @@ md.on('error', function (err) {
 	console.log(`error from connection to mongoose in users.js : ${err}`);
 });
 
-/*==Bringing in Mongoose Model===*/
+/*==Bringing in Mongoose Model for article===*/
 var Article = require('../models/article');
-/*==End of bringing in Mongoose Model==*/
+/*==End of bringing in Mongoose Model for article==*/
+
+/*==Bringing in mongoose model for users==*/
+var Users = require('../models/usersSchema');
+/*==End of Bringing in mongoose model for users==*/
 
 module.exports = (function () {
 	'use strict';
@@ -91,6 +95,11 @@ module.exports = (function () {
 	userRoute.route('/profile')
 		.get(userController.getProfile);
 	/*==End of Route to go to the profile==*/
+	
+	/*==Logout route==*/
+	userRoute.route('/logout')
+		.get(userController.logout);
+	/*==End of Logout route==*/
 	
 	/*==Add articles route==*/
 	userRoute.route("/addArticle")
